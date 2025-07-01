@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plasma Ordering System</title>
+    <link rel="stylesheet" href="style.css"></link>
+</head>
+
+<body>
+    <div class="container">
+        <div class="form-box active " id="login-form">
+            <form action="">
+                <h4>Welcome to Plasma Ordering System!</h4>
+                <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+                    <button type="button" onclick="showForm('Start-Order')">Start Order</button>
+                    <button  id=close-order-btn type="button" onclick="openCloseOrderForm()">Close Order</button>
+                </div>
+<p>Check your order status? <a href="#" onclick="showForm('line order records')">Status</a></p>
+</form>
+         </div>
+    </div>
+
+    <div class="container">
+        <div class="form-box" id="line order records">
+            <h2>Plasma Order Record</h2>
+            <table border="1">
+                <tr>
+                    <th>Date</th>
+                    <th>Lot Number</th>
+                    <th>Module</th>
+                    <th>Order By</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </table>
+                <p id="start-order-msg" >Submit New Order? <a href="#" onclick="showForm('Start-Order')">New Order</a></p>
+                <p id="close-order-msg" style="display: none;" >Go back? <a href="#" onclick="showForm('login-form')">Back</a></p>
+         </div>
+    </div>
+
+     <div class="container">
+        <div class="form-box order active" id="Start-Order">
+            <form action="">
+                <h2> Plasma Order Form </h2>
+                
+                <input type="Name" name="Name" placeholder="Name" required>
+                <input type="Lot Number" name="Lot Number" placeholder="Lot Number">
+                <input type="Module" name="Module" placeholder="Module">
+        
+                <button type="submit" name="Start Order"> Submit</button>
+            </form>
+                <p> <a href="#" onclick="showForm('login-form')">Back</a></p>
+         </div>
+    </div>
+
+    <div class="container">
+        <div class="form-box close" id="close-order-form">
+            <h2>Close Plasma Orders</h2>
+            <table border="1" id="closeOrderTable">
+                <tr>
+                    <th>Date</th>
+                    <th>Lot Number</th>
+                    <th>Module</th>
+                    <th>Order By</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </table>
+            <p><a href="#" onclick="window.lastAction='close';showForm('line order records')">Back to Record</a></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
