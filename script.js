@@ -127,3 +127,48 @@ document.querySelector('#line\\ order\\ records table').addEventListener('click'
         row.remove();
     }
 });
+
+db.ref("orders").on("value", (snapshot) => {
+ const data = snapshot.val();
+ const table = document.querySelector('#line\\ order\\ records table');
+ // Clear old rows
+ table.innerHTML = `
+<tr>
+<th>Date</th>
+<th>Lot Number</th>
+<th>Module</th>
+<th>Order By</th>
+<th>Status</th>
+<th>Action</th>
+</tr>
+ `;
+ for (let id in data) {
+   const order = data[id];
+   const row = table.insertRow(-1);
+   row.innerHTML = `
+<td>${order.date}</td>
+<td>${order.lot}</td>
+<td>${order.module}</td>
+<td>${order.name}</td>
+<td class="status-cell" style="background: ${order.status === 'PENDING' ? 'yellow' : 'lightgreen'};">${order.status}</td>
+<td><button class="cancel-btn" data-id="${id}">CANCEL</button></td>
+   `;
+ }
+});
+
+document.querySelector('#Start-Order form').addEventListener('submit', function (e) {
+ e.preventDefault();
+ const name = this.elements['Name'].value;
+ const lot = this.elements['Lot Number'].value;
+ const module = this.elements['Module'].value;
+ const now = new Date().toLocaleString();
+ db.ref("orders").push({
+   name,
+   lot,
+   module,
+   date: now,
+   status: "PENDING"
+ });
+ window.lastAction = 'start';
+ showForm('line order records');
+});
